@@ -2,15 +2,15 @@
 const express = require('express')
 const router = express.Router()
 
-
 // 引入模組程式碼
 const home = require('./modules/home')
 const todos = require('./modules/todos')
 const users = require('./modules/users')
+const { authenticator } = require('../middleware/auth')  // 掛載 middleware
 
-router.use('/todos', todos)
+router.use('/todos', authenticator, todos)
 router.use('/users', users)
-router.use('/', home)
+router.use('/', authenticator, home)
 
 
 // 匯出路由器
