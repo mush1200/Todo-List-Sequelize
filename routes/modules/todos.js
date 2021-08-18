@@ -18,6 +18,7 @@ router.post('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+
 router.get('/:id', (req, res) => {
   const UserId = req.user.id
   const id = req.params.id
@@ -25,6 +26,31 @@ router.get('/:id', (req, res) => {
     .then(todo => res.render('detail', { todo: todo.toJSON() }))
     .catch(error => console.log(error))
 })
+
+//修改一筆資料
+router.get('/:id/edit', (req, res) => {
+  const UserId = req.user.id
+  const id = req.params.id
+  return Todo.findOne({ where: { id, UserId } })
+    .then((todo) => res.render('edit', { todo: todo.toJSON() }))
+    .catch(error => console.error(error))
+})
+
+router.put('/:id', (req, res) => {
+  const UserId = req.user.id
+  const id = req.params.id
+  const { name, isDone } = req.body
+ 
+  return Todo.findOne({ where: { id, UserId } })
+    .then(todo => {
+      todo.name = name
+      todo.isDone = isDone === 'on'
+      return todo.save()
+    })
+    .then(() => res.redirect(`/todos/${id}`))
+    .catch(error => console.log(error))
+})
+
 
 // 匯出路由模組
 module.exports = router
