@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-
+//查詢一筆資料
 router.get('/:id', (req, res) => {
   const UserId = req.user.id
   const id = req.params.id
@@ -51,6 +51,15 @@ router.put('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//刪除一筆資料
+router.delete('/:id', (req, res) => {
+  const UserId = req.user.id
+  const id = req.params.id
+  return Todo.findOne({where: { UserId, id }})
+    .then(todo => todo.destroy())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 
 // 匯出路由模組
 module.exports = router
