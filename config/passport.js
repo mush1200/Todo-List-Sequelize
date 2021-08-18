@@ -6,14 +6,16 @@ const User = db.User
 module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
     User.findOne({ where: { email } })
       .then(user => {
         if (!user) {
+          req.flash('warning_msg', '這個信箱尚未註冊。')
           return done(null, false, { message: 'That email is not registered!' })
         }
         return bcrypt.compare(password, user.password).then(isMatch => {
           if (!isMatch) {
+            req.flash('warning_msg', '信箱或密碼輸入不正確。')
             return done(null, false, { message: 'Email or Password incorrect.' })
           }
           return done(null, user)
