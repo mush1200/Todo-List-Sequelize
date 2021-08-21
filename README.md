@@ -1,8 +1,3 @@
-# 待辦清單專案 Todo-List-Sequelize
-
-此專案可以讓使用者新增、瀏覽、修改和刪除待辦事項，主要是為了練習用 node.js 搭配 express 框架開發網頁，以及透過 sequelize 操作 MySQL。
-
-
 ## 專案功能 Features
 
 1. 使用者可以註冊帳號登入或是用Facebook第三方登入
@@ -54,11 +49,11 @@ npm install -g nodemon
 cp .env.example .env
 ```
 6. Facebook Login: 
-<br>
+
 在 [Facebook for Developers](https://developers.facebook.com/) 建立應用程式，並將應用程式編號與應用程式密鑰分別代入.env檔案中的 FACEBOOK_ID 及 FACEBOOK_SECRET
 
 7. 建立資料庫
-<br>
+
 打開 MySQL workbench 並連線至本地資料庫，輸入下列指令建立資料庫 
 
 ```
@@ -85,7 +80,7 @@ npx sequelize db:seed:all
 npm run dev
 ```
 11. 當終端機出現以下訊息後，即可在 http://localhost:3000 開始使用
-<br>
+
 App is running on http://localhost:3000
 
 ## 預設使用者
